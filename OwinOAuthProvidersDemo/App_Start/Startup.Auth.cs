@@ -44,6 +44,7 @@ using Owin.Security.Providers.Fitbit;
 using Owin.Security.Providers.Onshape;
 using Owin.Security.Providers.VKontakte;
 using Owin.Security.Providers.Xing;
+using Owin.Security.Providers.TenDuke;
 
 namespace OwinOAuthProvidersDemo
 {
@@ -85,6 +86,8 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGitHubAuthentication("", "");
 
+            app.UseTenDukeAuthentication("Telematics", "Telematics_secret","authorization_code","ANL_CORE,ANL_VIXEN,ANL_CPA");
+            
             //app.UseBufferAuthentication("", "");
 
             //app.UseRedditAuthentication("", "");
