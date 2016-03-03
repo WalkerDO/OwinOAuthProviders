@@ -72,7 +72,7 @@ namespace Owin.Security.Providers.TenDuke
                 body.Add(new KeyValuePair<string, string>("grant_type", Options.GrantType));
 
                 // Request the token
-                var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.Endpoints.TokenEndpoint);
+                var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.BaseUrl + Options.Endpoints.TokenEndpoint);
                 requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 requestMessage.Content = new FormUrlEncodedContent(body);
                 HttpResponseMessage tokenResponse = await httpClient.SendAsync(requestMessage);
@@ -84,7 +84,7 @@ namespace Owin.Security.Providers.TenDuke
                 string accessToken = (string)response.access_token;
 
                 // Get the TenDuke user
-                HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken));
+                HttpRequestMessage userRequest = new HttpRequestMessage(HttpMethod.Get, Options.BaseUrl + Options.Endpoints.UserInfoEndpoint + "?access_token=" + Uri.EscapeDataString(accessToken));
                 userRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage userResponse = await httpClient.SendAsync(userRequest, Request.CallCancelled);
                 userResponse.EnsureSuccessStatusCode();
@@ -118,7 +118,7 @@ namespace Owin.Security.Providers.TenDuke
                 string[] licReqs = Options.LicenseRequests.Split(',');
                 foreach (string licReq in licReqs)
                 {
-                    HttpRequestMessage licRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.LicenseRequestEndpoint + "?" + Uri.EscapeDataString(licReq));
+                    HttpRequestMessage licRequest = new HttpRequestMessage(HttpMethod.Get, Options.BaseUrl + Options.Endpoints.LicenseRequestEndpoint + "?" + Uri.EscapeDataString(licReq));
                     licRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     licRequest.Headers.Add("Authorization", "Bearer " + accessToken);
                     HttpResponseMessage licResponse = await httpClient.SendAsync(licRequest, Request.CallCancelled);
@@ -192,7 +192,7 @@ namespace Owin.Security.Providers.TenDuke
                 string state = Options.StateDataFormat.Protect(properties);
 
                 string authorizationEndpoint =
-                    Options.Endpoints.AuthorizationEndpoint +
+                    Options.BaseUrl + Options.Endpoints.AuthorizationEndpoint +
                         "?client_id=" + Uri.EscapeDataString(Options.ClientId) +
                         "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
                         "&scope=" + "email" +

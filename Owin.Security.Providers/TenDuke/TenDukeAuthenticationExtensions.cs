@@ -17,10 +17,11 @@ namespace Owin.Security.Providers.TenDuke
             return app;
         }
 
-        public static IAppBuilder UseTenDukeAuthentication(this IAppBuilder app, string clientId, string clientSecret, string grantType, string licenseRequests)
+        public static IAppBuilder UseTenDukeAuthentication(this IAppBuilder app, string baseUrl, string clientId, string clientSecret, string grantType, string licenseRequests)
         {
             return app.UseTenDukeAuthentication(new TenDukeAuthenticationOptions
             {
+                BaseUrl = baseUrl,
                 ClientId = clientId,
                 ClientSecret = clientSecret,
                 GrantType = grantType,

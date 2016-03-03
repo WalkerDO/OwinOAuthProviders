@@ -86,7 +86,7 @@ namespace OwinOAuthProvidersDemo
 
             //app.UseGitHubAuthentication("", "");
 
-            app.UseTenDukeAuthentication("Telematics", "Telematics_secret","authorization_code","ANL_CORE,ANL_VIXEN,ANL_CPA");
+            app.UseTenDukeAuthentication("https://causeway-idp-dev.10duke.com", "Telematics", "Telematics_secret","authorization_code","ANL_CORE,ANL_VIXEN,ANL_CPA");
             
             //app.UseBufferAuthentication("", "");
 

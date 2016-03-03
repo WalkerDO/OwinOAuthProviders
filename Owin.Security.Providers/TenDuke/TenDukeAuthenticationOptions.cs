@@ -43,10 +43,10 @@ namespace Owin.Security.Providers.TenDuke
             public string LicenseRequestEndpoint { get; set; }
         }
 
-        private const string AuthorizationEndPoint = "https://causeway-idp-dev.10duke.com/oauth2/authz/";
-        private const string TokenEndpoint = "https://causeway-idp-dev.10duke.com/oauth2/access";
-        private const string UserInfoEndpoint = "https://causeway-idp-dev.10duke.com/graph/me().json";
-        private const string LicenseRequestEndpoint = "https://causeway-idp-dev.10duke.com/authz/.json";
+        private const string AuthorizationEndPoint = "/oauth2/authz/";
+        private const string TokenEndpoint = "/oauth2/access";
+        private const string UserInfoEndpoint = "/graph/me().json";
+        private const string LicenseRequestEndpoint = "/authz/.json";
 
         /// <summary>
         ///     Gets or sets the a pinned certificate validator to use to validate the endpoints used
@@ -93,12 +93,18 @@ namespace Owin.Security.Providers.TenDuke
         }
 
         /// <summary>
-        ///     Gets or sets the GitHub supplied Client ID
+        ///     Gets or sets the TenDuke Base URL, this provider is not a single cloud instance
+        /// </summary>
+        public string BaseUrl { get; set; }
+
+
+        /// <summary>
+        ///     Gets or sets the TenDuke supplied Client ID
         /// </summary>
         public string ClientId { get; set; }
 
         /// <summary>
-        ///     Gets or sets the GitHub supplied Client Secret
+        ///     Gets or sets the TenDuke supplied Client Secret
         /// </summary>
         public string ClientSecret { get; set; }
 
